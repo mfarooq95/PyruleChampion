@@ -1,2 +1,2 @@
 # PyruleChampion
-A Breath of the Wild game data API
+A Breath of the Wild API providing in-game data
