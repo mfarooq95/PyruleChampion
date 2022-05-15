@@ -1,10 +1,6 @@
-# Import external packages -- brcypt functions to use with User class
 from flask_bcrypt import generate_password_hash, check_password_hash
-
-# Local imports -- functions
 from .db import db
 
-# Utilize Monogengine to create document schemas -- call classes to unpack json data into class/schema and save into MongoDB
 class OneHandedWeapons(db.Document):
     name = db.StringField(required = True, unique = True)
     item_type = db.StringField(required = True)
@@ -114,14 +110,13 @@ class Recipes(db.Document):
     description = db.StringField(required = True)
     url = db.StringField(reuired = True)
 
+
 class User(db.Document):
     email = db.EmailField(required = True, unique = True)
     password = db.StringField(required = True, min_length = 6)
 
-    # Function takes password given in POST request and hashes it
     def hash_password(self):
         self.password = generate_password_hash(password = self.password).decode('utf8')
 
-    # Function takes password given in POST request on login and checks it against the hashed, saved password
     def check_password(self, password):
         return check_password_hash(pw_hash = self.password, password = password)
